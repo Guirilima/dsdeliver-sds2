@@ -36,13 +36,20 @@ public class OrderService {
         Order order = new Order(null,dto.getAddress(),dto.getLatitude(),dto.getLongitude(), Instant.now(), OrderStatus.PENDING);
         //Percorrendo cada Product recebido
         for (ProductDTO p : dto.getProducts()) {
-            Product product = productRepository.getOne(p.getId());//Pegar a referencia da entidade.
+            Product product = productRepository.getOne(p.getId());//[Não vai ao BD]-Pegar a referencia da entidade.
             order.getProducts().add(product);
         }
         //Salvando
-        order = orderRepository.save(order);
+        orderRepository.save(order);
         //Convertendo e retornando como DTO
         return new OrderDTO(order);
     }
 
+    @Transactional
+    public OrderDTO setDelivered(Long id) {
+        Order order = orderRepository.getOne(id);//[Não vai ao BD]-Pegar a referencia da entidade.
+        order.setStatus(OrderStatus.DELIVERED);
+        orderRepository.save(order);
+        return new OrderDTO(order);
+    }
 }
