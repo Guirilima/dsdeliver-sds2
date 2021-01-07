@@ -14,6 +14,10 @@
 	<name>dsdeliver</name>
 	<description>Projeto Semana DevSuperior 2.0</description>
 
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
